@@ -16,6 +16,8 @@
 3. 設定 **Topic ID** (例如：`python-trigger-topic`)。
 4. 點擊 **Create**。
 
+PS: `僅傳送一次` 不設的話會一直發送。
+
 ---
 
 ## 2. 部署 Cloud Run Functions (Python)
