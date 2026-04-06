@@ -27,7 +27,6 @@ config = types.GenerateContentConfig(
     tools=[types.Tool(google_search=types.GoogleSearch())]
 )
 
-
 def ask_gemini(prompt):
     """
     Sends a prompt to Gemini and prints the response.
@@ -52,7 +51,6 @@ def ask_gemini(prompt):
         print(f"Unexpected error: {e}")
         raise
 
-
 def send_line_notify(msg):
     try:
         configuration = Configuration(access_token=LINE_CHANNEL_ACCESS_TOKEN)
@@ -70,16 +68,20 @@ def send_line_notify(msg):
 
 if __name__ == "__main__":
     prompt = """
-            請擔任專業的金融分析師，針對「昨天」美國股市的表現進行檢索與分析。
+請擔任資深美股分析師，針對「昨日」美股表現提供一份精簡簡報。
 
-            重點需求：
-            1. S&P 500 指數的整體表現與趨勢。
-            2. 整理各類股（例如科技、能源、金融等）的走勢消長。
-            3. 列出當天 3-5 則對市場有重大影響的股市新聞重點。
+輸出格式規範（針對 LINE 閱讀優化）：
+1. 禁止使用表格：請改用符號（如 🟢/🔴/🔹）進行分段。
+2. 極簡風格：每個數據或重點後請直接換行，不使用長句。
+3. 重點標註：關鍵數字（如漲跌幅）請加粗或置於括號。
+4. 寬鬆間距：大標題之間請空一行，確保在手機小螢幕上不擁擠。
 
-            輸出格式：
-            - 請使用「繁體中文」。
-            - 結構必須清晰，使用標題與列點。
-            - 報告結尾請加上簡短的今日展望。
+內容要求：
+- 【核心數據】：三大指數漲跌幅 + 一句話總結。
+- 【強弱板塊】：列出最標竿的 2 個強勢與 2 個弱勢板塊，並說明原因。
+- 【三則新聞】：僅列出 3 則最能影響「資金流向」的新聞，每則新聞總結不得超過 70 字。
+- 【明日觀點】：3 點短評。
+
+語言：繁體中文。
             """
     ask_gemini(prompt)
